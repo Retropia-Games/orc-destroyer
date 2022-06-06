@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://sprites/dummy/explosion_1.png" type="Texture" id=1]
+[ext_resource path="res://explosion.gd" type="Script" id=2]
+
+[node name="explosion" type="Sprite"]
+position = Vector2( 0, 1 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="qeue_free_timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="qeue_free_timer" to="." method="_on_qeue_free_timer_timeout"]
