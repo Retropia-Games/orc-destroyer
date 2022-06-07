@@ -1,15 +1,25 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://sprites/dummy/explosion_1.png" type="Texture" id=1]
 [ext_resource path="res://explosion.gd" type="Script" id=2]
+[ext_resource path="res://sprites/dummy/explosion_2.png" type="Texture" id=3]
 
-[node name="explosion" type="Sprite"]
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="explosion" type="AnimatedSprite"]
 position = Vector2( 0, 1 )
-texture = ExtResource( 1 )
+frames = SubResource( 1 )
+playing = true
 script = ExtResource( 2 )
 
 [node name="qeue_free_timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.5
 autostart = true
 
 [connection signal="timeout" from="qeue_free_timer" to="." method="_on_qeue_free_timer_timeout"]

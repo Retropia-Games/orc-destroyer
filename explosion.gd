@@ -1,5 +1,4 @@
-extends Sprite
-
+extends AnimatedSprite
 
 # Declare member variables here. Examples:
 # var a = 2
