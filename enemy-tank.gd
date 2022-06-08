@@ -1,6 +1,7 @@
 extends Area2D
 
 var explosion_scene = preload("res://explosion.tscn")
+var shot_scene = preload("res://tank-shot.tscn")
 
 export var MOVE_SPEED = 100.0
 var score_emitted = false
@@ -25,3 +26,11 @@ func _on_enemy_tank_area_entered(area):
 			var explosion_instance = explosion_scene.instance()
 			explosion_instance.position = position
 			stage_node.add_child(explosion_instance)
+
+
+func _on_shot_timer_timeout():
+	var stage_node = get_parent()
+		
+	var shot_instance = shot_scene.instance()
+	shot_instance.position = position - Vector2(20, 0)
+	stage_node.add_child(shot_instance)

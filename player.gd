@@ -43,7 +43,7 @@ func _on_reload_timer_timeout():
 	can_shoot = true
 
 func _on_player_area_entered(area):
-	if area.is_in_group("enemy"):
+	if area.is_in_group("enemy") or area.is_in_group("enemy_shot"):
 		emit_signal("destroyed")
 		queue_free()
 		

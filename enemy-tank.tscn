@@ -17,6 +17,7 @@ animations = [ {
 
 [node name="enemy_tank" type="Area2D" groups=["enemy", "tank"]]
 script = ExtResource( 3 )
+MOVE_SPEED = 50.0
 
 [node name="hit_zone" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -25,4 +26,9 @@ shape = SubResource( 1 )
 frames = SubResource( 2 )
 frame = 1
 
+[node name="shot_timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
 [connection signal="area_entered" from="." to="." method="_on_enemy_tank_area_entered"]
+[connection signal="timeout" from="shot_timer" to="." method="_on_shot_timer_timeout"]
