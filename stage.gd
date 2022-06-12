@@ -10,6 +10,7 @@ var score = 0
 
 func _ready():
 	get_node("player").connect("destroyed", self, "_on_player_destroyed")
+	get_node("player").connect("change_weapon", self, "_on_weapon_change")
 	get_node("spawn_timer").connect("timeout", self, "_on_spawn_timer_timeout")
 	
 func _on_player_destroyed():
@@ -31,3 +32,7 @@ func _on_spawn_timer_timeout():
 func _on_player_score():
 	score += 1
 	get_node("ui/score").text = "Score: " + str(score)
+
+func _on_weapon_change(weapon):
+	print(weapon)
+	get_node("ui/weapon").text = "Weapon: " + str(weapon)
