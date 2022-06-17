@@ -6,6 +6,7 @@ var explosion_scene = preload("res://explosion.tscn")
 export var MOVE_SPEED = 150.0
 var stage = load("res://stage.gd")
 var shot_scene = preload("res://javelin.tscn")
+var bullet_scene = preload("res://scenes/bullet.tscn")
 var can_shoot = true
 
 signal destroyed
@@ -41,20 +42,31 @@ func _process(delta):
 		can_shoot = false
 		if weapon == "javelin":
 			shoot_javelin()
+		elif weapon == "rifle":
+			shoot_bullet()
 			
 func _input(event):
 	# Change weapon
 	if event.is_action_released("ui_focus_next") and weapon == "javelin":
 		weapon = "rifle"
 		emit_signal("change_weapon", weapon)
+		$"reload_timer".wait_time = 0.2
 	elif event.is_action_released("ui_focus_next") and weapon == "rifle":
 		weapon = "javelin"
 		emit_signal("change_weapon", weapon)
+		$"reload_timer".wait_time = 1
 		
 func shoot_javelin():
 	var stage_node = get_parent()
 		
 	var shot_instance = shot_scene.instance()
+	shot_instance.position = position + Vector2(20, 0)
+	stage_node.add_child(shot_instance)
+	
+func shoot_bullet():
+	var stage_node = get_parent()
+		
+	var shot_instance = bullet_scene.instance()
 	shot_instance.position = position + Vector2(20, 0)
 	stage_node.add_child(shot_instance)	
 

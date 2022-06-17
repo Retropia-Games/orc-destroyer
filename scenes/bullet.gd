@@ -1,6 +1,6 @@
 extends Area2D
 
-export var MOVE_SPEED = 500
+export var MOVE_SPEED = 1000
 var stage = load("res://stage.gd")
 
 func _process(delta):
@@ -9,6 +9,7 @@ func _process(delta):
 	if position.x >= stage.SCREEN_WIDTH + 8:
 		queue_free()
 
-func _on_javelin_area_entered(area):
+
+func _on_Area2D_area_entered(area):
 	if area.is_in_group("enemy"):
 		queue_free()
