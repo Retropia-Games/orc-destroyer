@@ -1,11 +1,11 @@
 extends Area2D
 
 var weapon = "javelin";
-var explosion_scene = preload("res://explosion.tscn")
+var explosion_scene = preload("res://scenes/explosion.tscn")
 
 export var MOVE_SPEED = 150.0
-var stage = load("res://stage.gd")
-var shot_scene = preload("res://javelin.tscn")
+var stage = load("res://scenes/stage.gd")
+var shot_scene = preload("res://scenes/javelin.tscn")
 var bullet_scene = preload("res://scenes/bullet.tscn")
 var can_shoot = true
 

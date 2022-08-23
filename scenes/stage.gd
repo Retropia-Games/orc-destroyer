@@ -1,6 +1,6 @@
 extends Node2D
 
-var tank = preload("res://enemy-tank.tscn")
+var tank = preload("res://scenes/enemy-tank.tscn")
 
 const SCREEN_WIDTH = 320
 const SCREEN_HEIGHT = 180
@@ -21,7 +21,7 @@ func _input(event):
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().quit()
 	if is_game_over and Input.is_key_pressed(KEY_ENTER):
-		get_tree().change_scene("res://stage.tscn")
+		get_tree().change_scene("res://scenes/stage.tscn")
 
 func _on_spawn_timer_timeout():
 	var tank_instance = tank.instance()

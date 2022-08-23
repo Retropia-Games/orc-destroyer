@@ -1,7 +1,7 @@
 extends Area2D
 
 export var MOVE_SPEED = 1000
-var stage = load("res://stage.gd")
+var stage = load("res://scenes/stage.gd")
 
 func _process(delta):
 	self.position += Vector2(MOVE_SPEED * delta, 0.0);

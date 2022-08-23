@@ -1,6 +1,6 @@
 extends Sprite
 var scroll_speed = 30.0
-var stage = load("res://stage.gd")
+var stage = load("res://scenes/stage.gd")
 
 func _process(delta):
 	position += Vector2(-scroll_speed * delta, 0.0)
