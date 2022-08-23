@@ -1,7 +1,7 @@
 extends Area2D
 
 var explosion_scene = preload("res://explosion.tscn")
-var shot_scene = preload("res://tank-shot.tscn")
+var shot_scene = preload("res://scenes/tank-shot.tscn")
 
 export var MOVE_SPEED = 100.0
 var score_emitted = false
