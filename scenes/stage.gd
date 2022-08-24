@@ -1,6 +1,7 @@
 extends Node2D
 
 var tank = preload("res://scenes/enemy-tank.tscn")
+var soldier = preload("res://scenes/enemy-soldier.tscn")
 
 const SCREEN_WIDTH = 320
 const SCREEN_HEIGHT = 180
@@ -25,9 +26,14 @@ func _input(event):
 
 func _on_spawn_timer_timeout():
 	var tank_instance = tank.instance()
+	var soldier_instance = soldier.instance()
 	tank_instance.position = Vector2(SCREEN_WIDTH + 16, rand_range(0, SCREEN_HEIGHT))
 	tank_instance.connect("score", self, "_on_player_score")
+	
+	soldier_instance.position = Vector2(SCREEN_WIDTH + 16, rand_range(0, SCREEN_HEIGHT))
+	
 	add_child(tank_instance)
+	add_child(soldier_instance)
 
 func _on_player_score():
 	score += 1
