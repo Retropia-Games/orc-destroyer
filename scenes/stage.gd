@@ -31,6 +31,7 @@ func _on_spawn_timer_timeout():
 	tank_instance.connect("score", self, "_on_player_score")
 	
 	soldier_instance.position = Vector2(SCREEN_WIDTH + 16, rand_range(0, SCREEN_HEIGHT))
+	soldier_instance.connect("score", self, "_on_player_score")
 	
 	add_child(tank_instance)
 	add_child(soldier_instance)

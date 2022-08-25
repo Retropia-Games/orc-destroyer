@@ -1,9 +1,10 @@
 extends Area2D
 
+var explosion_scene = preload("res://scenes/explosion.tscn")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var score_emitted = false
+
+signal score
 
 func _process(delta):
 	position -= Vector2(5 * delta, 0.0);
@@ -11,11 +12,14 @@ func _process(delta):
 	if position.x <= -100:
 		queue_free()
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_enemy_soldier_area_entered(area):
+	if area.is_in_group("bullet"):
+		if not  score_emitted:
+			score_emitted = true
+			emit_signal("score")
+			queue_free()
+			
+			var stage_node = get_parent()
+			var explosion_instance = explosion_scene.instance()
+			explosion_instance.position = position
+			stage_node.add_child(explosion_instance)
