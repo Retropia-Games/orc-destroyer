@@ -29,8 +29,7 @@ func _on_enemy_tank_area_entered(area):
 
 
 func _on_shot_timer_timeout():
-	var stage_node = get_parent()
-		
+	var stage_node = get_parent()		
 	var shot_instance = shot_scene.instance()
 	shot_instance.position = position - Vector2(20, 0)
 	stage_node.add_child(shot_instance)
