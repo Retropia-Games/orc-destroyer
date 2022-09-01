@@ -1,16 +1,18 @@
 extends Area2D
 
-var weapon = "javelin";
 var explosion_scene = preload("res://scenes/explosion.tscn")
+var shot_scene = preload("res://scenes/javelin.tscn")
+var bullet_scene = preload("res://scenes/bullet.tscn")
 
 export var MOVE_SPEED = 150.0
 var stage = load("res://scenes/stage.gd")
-var shot_scene = preload("res://scenes/javelin.tscn")
-var bullet_scene = preload("res://scenes/bullet.tscn")
+var weapon = "javelin";
 var can_shoot = true
+var lives = 3
 
 signal destroyed
 signal change_weapon
+signal loose_life
 
 func _process(delta):
 	var input_dir = Vector2()
@@ -75,10 +77,13 @@ func _on_reload_timer_timeout():
 
 func _on_player_area_entered(area):
 	if area.is_in_group("enemy") or area.is_in_group("enemy_shot"):
-		emit_signal("destroyed")
-		queue_free()
+		lives -= 1
+		emit_signal("loose_life", lives)
 		
-		var stage_node = get_parent()
-		var explosion_instance = explosion_scene.instance()
-		explosion_instance.position = position
-		stage_node.add_child(explosion_instance)
+		if lives == 0:
+			emit_signal("destroyed")
+			queue_free()
+			var stage_node = get_parent()
+			var explosion_instance = explosion_scene.instance()
+			explosion_instance.position = position
+			stage_node.add_child(explosion_instance)

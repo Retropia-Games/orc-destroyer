@@ -21,6 +21,7 @@ script = ExtResource( 3 )
 [node name="sprite" type="AnimatedSprite" parent="."]
 rotation = 3.14159
 frames = SubResource( 2 )
+frame = 1
 playing = true
 
 [node name="damage_zone" type="CollisionShape2D" parent="."]

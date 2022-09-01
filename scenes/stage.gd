@@ -12,11 +12,15 @@ var score = 0
 func _ready():
 	get_node("player").connect("destroyed", self, "_on_player_destroyed")
 	get_node("player").connect("change_weapon", self, "_on_weapon_change")
+	get_node("player").connect("loose_life", self, "_on_player_loose_life")
 	get_node("spawn_timer").connect("timeout", self, "_on_spawn_timer_timeout")
 	
 func _on_player_destroyed():
 	get_node("ui/retry").show()
 	is_game_over = true
+	
+func _on_player_loose_life(lives):
+	print(lives)
 
 func _input(event):
 	if Input.is_key_pressed(KEY_ESCAPE):

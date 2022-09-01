@@ -28,7 +28,7 @@ func _on_enemy_soldier_area_entered(area):
 
 func _on_shot_timer_timeout():
 	var random_seed = randi() % 50
-	if random_seed % 2 == 0:
+	if random_seed % 3 == 0:
 		var stage_node = get_parent()
 		var shot_instance = shot_scene.instance()
 		shot_instance.position = position - Vector2(10, 0)
