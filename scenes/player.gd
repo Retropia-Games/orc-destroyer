@@ -97,7 +97,7 @@ func _input(event):
 		
 func shoot_javelin():
 	var stage_node = get_parent()
-		
+	$smoke.restart()
 	var shot_instance = shot_scene.instance()
 	shot_instance.position = position + Vector2(20, 0)
 	stage_node.add_child(shot_instance)
