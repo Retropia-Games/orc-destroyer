@@ -16,20 +16,31 @@ signal loose_life
 
 func _process(delta):
 	var input_dir = Vector2()
+	var walk = false
 	
 	# Up & down movement
 	if Input.is_key_pressed(KEY_UP):
 		input_dir.y -= 1.0
-		
+		walk = true
+	
 	if Input.is_key_pressed(KEY_DOWN):
 		input_dir.y += 1.0
+		walk = true
 		
 	# Left & right movement
 	if Input.is_key_pressed(KEY_LEFT):
 		input_dir.x -= 1.0
+		walk = true
 		
 	if Input.is_key_pressed(KEY_RIGHT):
 		input_dir.x += 1.0
+		walk = true
+	
+	if walk:
+		$fella.play("walk")
+	else:
+		$fella.stop()
+		$fella.frame = 0
 		
 	position += (delta * MOVE_SPEED) * input_dir
 	
@@ -40,12 +51,19 @@ func _process(delta):
 		position.y = stage.SCREEN_HEIGHT
 
 	# Shoting
-	if Input.is_key_pressed(KEY_SPACE) and can_shoot:
-		can_shoot = false
-		if weapon == "javelin":
-			shoot_javelin()
-		elif weapon == "rifle":
-			shoot_bullet()
+	if Input.is_key_pressed(KEY_SPACE):
+		if weapon == "rifle":
+			$m4a1.play("shooting")
+		
+		if can_shoot:
+			can_shoot = false
+			if weapon == "javelin":
+				shoot_javelin()
+			elif weapon == "rifle":
+				shoot_bullet()
+	else:
+		$m4a1.stop()
+		$m4a1.frame = 0
 			
 func _input(event):
 	# Change weapon
@@ -69,7 +87,7 @@ func shoot_bullet():
 	var stage_node = get_parent()
 		
 	var shot_instance = bullet_scene.instance()
-	shot_instance.position = position + Vector2(20, 0)
+	shot_instance.position = position + Vector2(32, 4)
 	stage_node.add_child(shot_instance)	
 
 func _on_reload_timer_timeout():

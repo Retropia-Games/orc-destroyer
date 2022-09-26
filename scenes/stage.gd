@@ -3,8 +3,8 @@ extends Node2D
 var tank = preload("res://scenes/enemy-tank.tscn")
 var soldier = preload("res://scenes/enemy-soldier.tscn")
 
-const SCREEN_WIDTH = 1000
-const SCREEN_HEIGHT = 600
+const SCREEN_WIDTH = 960
+const SCREEN_HEIGHT = 540
 
 var is_game_over = false
 var score = 0
