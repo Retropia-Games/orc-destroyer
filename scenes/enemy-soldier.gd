@@ -8,7 +8,7 @@ var score_emitted = false
 signal score
 
 func _process(delta):
-	position -= Vector2(5 * delta, 0.0);
+	position -= Vector2(5 * delta, 0.0)
 	
 	if position.x <= 0:
 		queue_free()

@@ -1,8 +1,18 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://sprites/characters/fella-001__walk.png" type="Texture" id=1]
 [ext_resource path="res://sprites/characters/m4ai__shooting.png" type="Texture" id=2]
 [ext_resource path="res://scenes/player.gd" type="Script" id=3]
+[ext_resource path="res://sprites/characters/fella-001__stand.png" type="Texture" id=4]
+[ext_resource path="res://sprites/characters/javelin__shooting.png" type="Texture" id=5]
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
@@ -22,6 +32,11 @@ region = Rect2( 96, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
+"frames": [ SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "stand",
+"speed": 2.0
+}, {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "walk",
@@ -60,6 +75,42 @@ animations = [ {
 "speed": 20.0
 } ]
 
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 5 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 5 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 5 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 5 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 5 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=31]
+animations = [ {
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"loop": true,
+"name": "shooting",
+"speed": 25.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=21]
 extents = Vector2( 21.5, 30 )
 
@@ -77,11 +128,19 @@ wait_time = 0.25
 [node name="fella" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 6 )
-animation = "walk"
+animation = "stand"
+frame = 1
 
 [node name="m4a1" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 14 )
+animation = "shooting"
+
+[node name="javelin" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, 2 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 31 )
 animation = "shooting"
 
 [node name="hit_zone" type="CollisionShape2D" parent="."]
@@ -90,3 +149,4 @@ shape = SubResource( 21 )
 [connection signal="area_entered" from="." to="." method="_on_player_area_entered"]
 [connection signal="timeout" from="reload_timer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="invincibility_timer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="animation_finished" from="javelin" to="." method="_on_javelin_animation_finished"]

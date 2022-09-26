@@ -4,6 +4,7 @@ extends Area2D
 func _ready():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
+	$AnimatedSprite.frame = rng.randi_range(0, 1)
 	$Timer.wait_time = rng.randi_range(8, 20)
 	$Timer.start()
 
