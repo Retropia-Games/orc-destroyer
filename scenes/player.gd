@@ -3,8 +3,14 @@ extends Area2D
 var explosion_scene = preload("res://scenes/explosion.tscn")
 var shot_scene = preload("res://scenes/javelin.tscn")
 var bullet_scene = preload("res://scenes/bullet.tscn")
+var casing_scene = preload("res://scenes/casing.tscn")
+var rng = RandomNumberGenerator.new()
 
 export var MOVE_SPEED = 150.0
+export var RIFLE_RELOAD_TIME = 0.5
+export var JAVELIN_RELOAD_TIME = 2
+export var INVINCIBILITY_CYCLES = 12
+var invincibility = 0
 var stage = load("res://scenes/stage.gd")
 var weapon = "javelin";
 var can_shoot = true
@@ -70,11 +76,15 @@ func _input(event):
 	if event.is_action_released("ui_focus_next") and weapon == "javelin":
 		weapon = "rifle"
 		emit_signal("change_weapon", weapon)
-		$"reload_timer".wait_time = 0.2
+		$"reload_timer".stop()
+		$"reload_timer".wait_time = RIFLE_RELOAD_TIME
+		$"reload_timer".start()
 	elif event.is_action_released("ui_focus_next") and weapon == "rifle":
 		weapon = "javelin"
 		emit_signal("change_weapon", weapon)
-		$"reload_timer".wait_time = 1
+		$"reload_timer".stop()
+		$"reload_timer".wait_time = JAVELIN_RELOAD_TIME
+		$"reload_timer".start()
 		
 func shoot_javelin():
 	var stage_node = get_parent()
@@ -88,15 +98,24 @@ func shoot_bullet():
 		
 	var shot_instance = bullet_scene.instance()
 	shot_instance.position = position + Vector2(32, 4)
-	stage_node.add_child(shot_instance)	
+	stage_node.add_child(shot_instance)
+	
+	var casing_instance = casing_scene.instance()
+	rng.randomize()
+	casing_instance.position = position + Vector2(rng.randi_range(-48, -16), rng.randi_range(16, 32))
+	stage_node.add_child(casing_instance)
 
 func _on_reload_timer_timeout():
 	can_shoot = true
 
 func _on_player_area_entered(area):
 	if area.is_in_group("enemy") or area.is_in_group("enemy_shot"):
+		if invincibility > 0:
+			return
+			
 		lives -= 1
 		emit_signal("loose_life", lives)
+		$invincibility_timer.start()
 		
 		if lives == 0:
 			emit_signal("destroyed")
@@ -105,3 +124,19 @@ func _on_player_area_entered(area):
 			var explosion_instance = explosion_scene.instance()
 			explosion_instance.position = position
 			stage_node.add_child(explosion_instance)
+
+
+func _on_invincibility_timer_timeout():
+	if invincibility == INVINCIBILITY_CYCLES:
+		invincibility = 0
+		$fella.modulate = Color(1, 1, 1)
+		$invincibility_timer.stop()
+	else:
+		invincibility += 1
+		
+		if invincibility % 2 != 0:
+			$fella.modulate = Color(1, 0, 0)
+			$invincibility_timer.start()
+		else:
+			$fella.modulate = Color(1, 1, 1)
+			$invincibility_timer.start()

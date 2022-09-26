@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://sprites/characters/fella-001__walk.png" type="Texture" id=1]
 [ext_resource path="res://sprites/characters/m4ai__shooting.png" type="Texture" id=2]
@@ -28,54 +28,53 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 2 )
 region = Rect2( 32, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 2 )
 region = Rect2( 96, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 2 )
 region = Rect2( 128, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 2 )
 region = Rect2( 160, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 32, 32 )
-
 [sub_resource type="SpriteFrames" id=14]
 animations = [ {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": true,
 "name": "shooting",
 "speed": 20.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 20.0
-height = 30.0
+[sub_resource type="RectangleShape2D" id=21]
+extents = Vector2( 21.5, 30 )
 
 [node name="player" type="Area2D" groups=["player"]]
+z_index = 2
 script = ExtResource( 3 )
+RIFLE_RELOAD_TIME = 0.25
 
 [node name="reload_timer" type="Timer" parent="."]
 autostart = true
 
+[node name="invincibility_timer" type="Timer" parent="."]
+wait_time = 0.25
+
 [node name="fella" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -1 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 6 )
 animation = "walk"
@@ -86,8 +85,8 @@ frames = SubResource( 14 )
 animation = "shooting"
 
 [node name="hit_zone" type="CollisionShape2D" parent="."]
-position = Vector2( -4, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 21 )
 
 [connection signal="area_entered" from="." to="." method="_on_player_area_entered"]
 [connection signal="timeout" from="reload_timer" to="." method="_on_reload_timer_timeout"]
+[connection signal="timeout" from="invincibility_timer" to="." method="_on_invincibility_timer_timeout"]
