@@ -21,6 +21,9 @@ signal destroyed
 signal change_weapon
 signal loose_life
 
+func _ready():
+	$"reload_timer".wait_time = RIFLE_RELOAD_TIME
+
 func _process(delta):
 	var input_dir = Vector2()
 	var walk = false
