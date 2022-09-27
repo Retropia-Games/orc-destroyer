@@ -1,6 +1,7 @@
 extends Area2D
 
 var explosion_scene = preload("res://scenes/explosion.tscn")
+var player_death_scene = preload("res://scenes/player-death.tscn")
 var shot_scene = preload("res://scenes/javelin.tscn")
 var bullet_scene = preload("res://scenes/bullet.tscn")
 var casing_scene = preload("res://scenes/casing.tscn")
@@ -133,7 +134,7 @@ func _on_player_area_entered(area):
 			emit_signal("destroyed")
 			queue_free()
 			var stage_node = get_parent()
-			var explosion_instance = explosion_scene.instance()
+			var explosion_instance = player_death_scene.instance()
 			explosion_instance.position = position
 			stage_node.add_child(explosion_instance)
 
