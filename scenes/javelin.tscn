@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://sprites/characters/javelin-rocket.png" type="Texture" id=1]
+[ext_resource path="res://sprites/characters/smoke.png" type="Texture" id=2]
 [ext_resource path="res://scenes/javelin.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -32,7 +33,7 @@ animations = [ {
 
 [node name="javelin" type="Area2D" groups=["shot"]]
 script = ExtResource( 3 )
-MOVE_SPEED = 100
+MOVE_SPEED = 50
 
 [node name="damage_zone" type="CollisionShape2D" parent="."]
 position = Vector2( 5, 0 )
@@ -42,7 +43,24 @@ shape = SubResource( 1 )
 position = Vector2( 5, 0 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 6 )
-frame = 1
-playing = true
+
+[node name="smoke" type="CPUParticles2D" parent="."]
+position = Vector2( -18, 0 )
+emitting = false
+amount = 4
+lifetime = 0.8
+fract_delta = false
+local_coords = false
+texture = ExtResource( 2 )
+direction = Vector2( 1, 1 )
+spread = 1.0
+gravity = Vector2( -50, -30 )
+scale_amount = 2.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.25
+one_shot = true
+autostart = true
 
 [connection signal="area_entered" from="." to="." method="_on_javelin_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -12,3 +12,9 @@ func _process(delta):
 func _on_javelin_area_entered(area):
 	if area.is_in_group("enemy"):
 		queue_free()
+
+
+func _on_Timer_timeout():
+	$smoke.restart()
+	$AnimatedSprite.play()
+	MOVE_SPEED += 200

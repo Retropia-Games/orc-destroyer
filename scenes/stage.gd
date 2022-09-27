@@ -31,10 +31,10 @@ func _input(event):
 func _on_spawn_timer_timeout():
 	var tank_instance = tank.instance()
 	var soldier_instance = soldier.instance()
-	tank_instance.position = Vector2(SCREEN_WIDTH + 16, rand_range(0, SCREEN_HEIGHT))
+	tank_instance.position = Vector2(SCREEN_WIDTH + 16, rand_range(192, SCREEN_HEIGHT))
 	tank_instance.connect("score", self, "_on_player_score")
 	
-	soldier_instance.position = Vector2(SCREEN_WIDTH + 16, rand_range(0, SCREEN_HEIGHT))
+	soldier_instance.position = Vector2(SCREEN_WIDTH + 16, rand_range(192, SCREEN_HEIGHT))
 	soldier_instance.connect("score", self, "_on_player_score")
 	
 	$spawn_timer.wait_time = rand_range(1, 5)
