@@ -26,7 +26,7 @@ func _input(event):
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().quit()
 	if is_game_over and Input.is_key_pressed(KEY_ENTER):
-		get_tree().change_scene("res://scenes/stage.tscn")
+		get_tree().change_scene("res://scenes/game-screen.tscn")
 
 func _on_spawn_timer_timeout():
 	var tank_instance = tank.instance()
