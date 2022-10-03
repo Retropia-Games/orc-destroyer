@@ -58,18 +58,18 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 21, 31.5 )
+extents = Vector2( 27.5, 32.25 )
 
 [node name="enemy_soldier" type="Area2D" groups=["enemy", "soldier"]]
 script = ExtResource( 3 )
+move_speed = 50
 
 [node name="shot_timer" type="Timer" parent="."]
-autostart = true
+wait_time = 0.25
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 flip_h = true
 
@@ -84,12 +84,16 @@ flip_h = true
 position = Vector2( 0, 2 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 12 )
-playing = true
 flip_h = true
 
 [node name="hit_zone" type="CollisionShape2D" parent="."]
-position = Vector2( 3, 0.5 )
+position = Vector2( -4, 0.25 )
 shape = SubResource( 1 )
+
+[node name="reload_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [connection signal="area_entered" from="." to="." method="_on_enemy_soldier_area_entered"]
 [connection signal="timeout" from="shot_timer" to="." method="_on_shot_timer_timeout"]
+[connection signal="timeout" from="reload_timer" to="." method="_on_reload_timer_timeout"]

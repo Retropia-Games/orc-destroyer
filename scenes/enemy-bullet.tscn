@@ -8,7 +8,7 @@ extents = Vector2( 2, 1 )
 
 [node name="enemy_bullet" type="Area2D" groups=["enemy_shot"]]
 script = ExtResource( 2 )
-MOVE_SPEED = 150
+MOVE_SPEED = 200
 
 [node name="sprite" type="Sprite" parent="."]
 position = Vector2( 2, 1 )

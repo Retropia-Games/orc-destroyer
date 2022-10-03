@@ -39,7 +39,7 @@ func _on_spawn_timer_timeout():
 	
 	$spawn_timer.wait_time = rand_range(1, 5)
 	
-	add_child(tank_instance)
+	# add_child(tank_instance)
 	add_child(soldier_instance)
 
 func _on_player_score():

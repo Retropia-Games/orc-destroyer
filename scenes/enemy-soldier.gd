@@ -1,14 +1,22 @@
 extends Area2D
 
+export var shots_count = 10
+export var move_speed = 10
+var counter = 0
+
 var explosion_scene = preload("res://scenes/explosion.tscn")
 var shot_scene = preload("res://scenes/enemy-bullet.tscn")
+
 
 var score_emitted = false
 
 signal score
 
+func _ready():
+	$shot_timer.start()
+
 func _process(delta):
-	position -= Vector2(5 * delta, 0.0)
+	position -= Vector2(move_speed * delta, 0.0)
 	
 	if position.x <= 0:
 		queue_free()
@@ -27,9 +35,20 @@ func _on_enemy_soldier_area_entered(area):
 
 
 func _on_shot_timer_timeout():
-	var random_seed = randi() % 50
-	# if random_seed % 3 == 0:
+	counter += 1
+	
+	if counter < shots_count:
+		shoot()
+	else:
+		counter = 0
+		$shot_timer.stop()
+		$reload_timer.start()
+
+func shoot():
 	var stage_node = get_parent()
 	var shot_instance = shot_scene.instance()
-	shot_instance.position = position - Vector2(32, -7)
+	shot_instance.position = position - Vector2(32, -6)
 	stage_node.add_child(shot_instance)
+	
+func _on_reload_timer_timeout():
+	$shot_timer.start()
