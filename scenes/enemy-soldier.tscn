@@ -61,6 +61,7 @@ animations = [ {
 extents = Vector2( 27.5, 32.25 )
 
 [node name="enemy_soldier" type="Area2D" groups=["enemy", "soldier"]]
+z_index = 2
 script = ExtResource( 3 )
 move_speed = 50
 
@@ -70,6 +71,7 @@ wait_time = 0.25
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 1
 playing = true
 flip_h = true
 
